@@ -2,25 +2,26 @@ DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS regions;
 DROP TABLE IF EXISTS cities;
 CREATE TABLE regions (
-    region_id int PRIMARY KEY,
+    region_id INTEGER PRIMARY KEY,
     code text NOT NULL UNIQUE,
     name text NOT NULL UNIQUE
 );
 CREATE TABLE cities (
-    city_id int PRIMARY KEY,
+    city_id INTEGER PRIMARY KEY,
     name text NOT NULL,
     region_code text NOT NULL,
     FOREIGN KEY (region_code) REFERENCES regions (code)
 );
 CREATE TABLE comments (
-    comment_id int PRIMARY KEY,
+    comment_id INTEGER PRIMARY KEY,
     name text NOT NULL,
     last_name text NOT NULL,
     middle_name text,
     phone text UNIQUE,
     email text UNIQUE,
-    city_id int NOT NULL,
-    region_code int NOT NULL,
+    city_id INTEGER NOT NULL,
+    region_code text NOT NULL,
+    comment text NOT NULL,
     FOREIGN KEY (region_code) REFERENCES regions (code),
     FOREIGN KEY (city_id) REFERENCES cities (city_id)
 );

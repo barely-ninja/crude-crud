@@ -1,9 +1,6 @@
-document.addEventListener('DOMContentLoaded',function() {
-    document.querySelector('select[name="region"]').onchange=changeEventHandler;
-},false);
-
-function changeEventHandler(event) {
-    const apiPath = `./region/${ event.target.value }`;
+const makeAPIFunc = (useResult, params = undefined) => {
+  const fetchRegionsAPI = (event = undefined) => {
+    const apiPath = event ? `./regions/${ event.target.value }` : './regions';
     fetch(apiPath)  
     .then(  
       function(response) {  
@@ -13,15 +10,30 @@ function changeEventHandler(event) {
           return;  
         }
         response.json().then(function(data) {
-            opts = data.map((val)=>`<option value="${val.id}">${val.name}</option>`);
-            document.querySelector('select[name="city"]').innerHTML = opts;
-            console.log(data);  
+            const opts = data.map((val)=>`<option value="${val.id}">${val.name}</option>`);
+            useResult(opts, params);
         });  
       }  
     )  
     .catch(function(err) {  
       console.log('Fetch Error :-S', err);  
     });
+  }
+  return fetchRegionsAPI; 
 }
 
+const insertCityOpts = (opts, params) => {
+  document.querySelector('#city_id').innerHTML = opts;
+}
 
+const insertRegionOpts = (opts, onChangeFunc) => {
+  const regionSelector = document.querySelector('#region_code')
+  const chooseReg = '<option value="">Выберите регион...</option>'
+  regionSelector.innerHTML = chooseReg+opts;
+  regionSelector.onchange=onChangeFunc;            
+} 
+
+const cityLoader = makeAPIFunc(insertCityOpts)
+const regionLoader = makeAPIFunc(insertRegionOpts, cityLoader)
+
+document.addEventListener('DOMContentLoaded',regionLoader,false);
