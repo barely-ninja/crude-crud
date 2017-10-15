@@ -4,10 +4,10 @@ from string import Template
 def escape(name, item):
     re_table = {
         'name': r'[^\d|\w| |\.]',
-        'phone': r'[^\d| |\+|\-|\(|\)]',
+        'phone': r'[^\d| |\(|\)]',
         'email': r'[^\d|\w|\.|\-|@]',
         'id': r'[^\d]',
-        'text': r'[^\w]'
+        'text': r'[;]'
     }
     return sub(re_table[name], '', item) 
 
@@ -30,7 +30,7 @@ class Response:
     def headers(self, ct_type, ct):
         def content_type(ctt):
             MIME_table = {
-                'HTML': 'text/html',
+                'HTML': 'text/html; charset=utf-8',
                 'JSON': 'text/json',
                 'ICO': 'image/x-icon',
                 'TXT': 'text/plain'

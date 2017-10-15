@@ -1,6 +1,6 @@
 const makeAPIFunc = (useResult, params = undefined) => {
-  const fetchRegionsAPI = (event = undefined) => {
-    const apiPath = event ? `./regions/${ event.target.value }` : './regions';
+  const fetchRegionsAPI = (event) => {
+    const apiPath = event.target.value ? `./regions/${ event.target.value }` : './regions';
     fetch(apiPath)  
     .then(  
       function(response) {  

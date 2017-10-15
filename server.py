@@ -29,14 +29,14 @@ class CommentServer:
         #Collect useful params
         self.params = {}
         if environ['REQUEST_METHOD'] == 'GET':
-            self.params['body'] = parse_qs(environ['QUERY_STRING'])
+            self.params['body'] = parse_qs(environ['QUERY_STRING'], encoding='utf-8')
         else:
             try:
                 request_body_size = int(environ.get('CONTENT_LENGTH', 0))
             except (ValueError):
                 request_body_size = 0
-            request_body = environ['wsgi.input'].read(request_body_size)
-            self.params['body'] = parse_qs(request_body)
+            request_body = environ['wsgi.input'].read(request_body_size).decode()
+            self.params['body'] = parse_qs(request_body, encoding='utf-8')
         self.params['resource_id'] = path_elements[-1]
         #Init DB
         if exists(_DB):
