@@ -3,11 +3,16 @@
   <head>
     <meta charset="utf-8">
     <title>Список</title>
-    <style media="screen" type="text/css"></style>
+    <style media="screen" type="text/css">
+      #stats td {
+        border: 1px dotted #999999;
+      }
+    </style>
   </head>
   <body>
     ${header}
     <hr>
+    <h3 style="color: red;">${error}</h3>
     <table id="stats">
         ${rows}
     </table>

@@ -10,44 +10,48 @@
       input:valid {
         border: 0.5px solid black;
       }
+      form  { display: table;      }
+      p     { display: table-row;  }
+      label { display: table-cell; }
+      input { display: table-cell; }
     </style>
   </head>
   <body>
     ${header}
     <hr>
+    <h3 style="color: red;">${error}</h3>
     <form action="/comment" method="post" accept-charset="utf-8">
-      <div>
+      <p>
           <label for="last_name">Фамилия:</label> <input required type="text" id="last_name" name="last_name">
-        </div>
-      <div>
+      </p>
+      <p>
         <label for="name">Имя:</label> <input required type="text" id="name" name="name">
-      </div>
-      <div>
+      </p>
+      <p>
           <label for="middle_name">Отчество:</label> <input type="text" name="middle_name">
-        </div>
-      <div>
+      </p>
+      <p>
         <label for="region_code">Регион:</label>
         <select name="region_code" id="region_code">
         </select>
-      </div>
-      <div>
+      </p>
+      <p>
         <label for="city_id">Город:</label>
         <select name="city_id" id="city_id">
         </select>
-      </div>
-      <div>
-          <p>Формат номера: (xxx) xxxxxxx</p>
-          <label for="phone">Телефон:</label> <input pattern="\(\d+\) \d+" type="text" id="phone" name="phone">
-      </div>
-      <div>
+      </p>
+      <p>
+          <label for="phone">Телефон:</label> <input title="Формат: (xxx) xxxxxxx" pattern="\(\d+\) \d+" type="text" id="phone" name="phone">
+      </p>
+      <p>
         <label for="email">Адрес эл. почты:</label> <input type="email" id="email" name="email">
-      </div>
-      <div>
+      </p>
+      <p>
         <label for="msg">Комментарий:</label> <textarea required rows="5" id="comment" name="comment"></textarea>
-      </div>
-      <div class="button">
-        <button type="submit">Send your message</button>
-      </div>
+      </p>
+      <p>
+        <label></label><button type="submit">Добавить комментарий</button>
+      </p>
   </form>
   <script>${script}</script>
   </body>

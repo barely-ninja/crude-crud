@@ -9,18 +9,24 @@ def escape(name, item):
         'id': r'[^\d]',
         'text': r'[;]'
     }
-    return sub(re_table[name], '', item) 
+    try:
+        val = sub(re_table[name], '', item)
+    except TypeError:
+        val = None
+    return val
 
 def fill_template(container, props):
     """Helper method for filling templates from self.props"""
     template = Template(container)
-    content = template.substitute(props)
+    props_list = [(k, v if v is not None else '') for k,v in props.items()]
+    clean_props = dict(props_list)
+    content = template.substitute(clean_props)
     return content
 
 class Response:
     """Generic response interface for a route"""
     def __init__(self):
-        self.props = {}
+        self.props = {'error': ''}
         self.status = {
             'OK': "200 OK",
             'server-error': "500 Server Error",
